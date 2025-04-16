@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kanban Task Tracker</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="p-4 md:p-8">
+
+    <header class="mb-10">
+        <h1 class="text-3xl font-bold text-center text-gray-800"><i class="fas fa-clipboard-list text-primary mr-2"></i>My Kanban Board</h1>
+        <p class="text-center text-gray-500 mt-2">Organize your tasks with drag and drop</p>
+    </header>
+
+    <div class="mb-8 max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+        <h2 class="text-lg font-semibold mb-3 text-gray-700"><i class="fas fa-plus-circle text-primary mr-2"></i>Add New Task</h2>
+        <div class="flex space-x-2">
+            <input type="text" id="new-task-input" placeholder="Enter task description..." class="task-input flex-grow">
+            <button id="add-task-button" class="add-task-btn"><i class="fas fa-plus mr-1"></i> Add</button>
+        </div>
+        <p id="task-error" class="text-red-500 text-sm mt-1 hidden">Please enter a task description.</p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div id="todo" class="kanban-column" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+            <h2 class="column-title"><i class="fas fa-list text-todo mr-2"></i>To Do</h2>
+            <div class="empty-state">
+                <p><i class="fas fa-clipboard text-todo-light fa-2x mb-2"></i></p>
+                <p>No tasks yet</p>
+                <p class="hint">Add a new task to get started</p>
+            </div>
+        </div>
+
+        <div id="inprogress" class="kanban-column" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+            <h2 class="column-title"><i class="fas fa-spinner text-inprogress mr-2"></i>In Progress</h2>
+            <div class="empty-state">
+                <p><i class="fas fa-hourglass-half text-inprogress-light fa-2x mb-2"></i></p>
+                <p>No tasks in progress</p>
+                <p class="hint">Drag tasks here when you start working on them</p>
+            </div>
+        </div>
+
+        <div id="done" class="kanban-column" ondragover="handleDragOver(event)" ondragleave="handleDragLeave(event)" ondrop="handleDrop(event)">
+            <h2 class="column-title"><i class="fas fa-check-circle text-done mr-2"></i>Done</h2>
+            <div class="empty-state">
+                <p><i class="fas fa-trophy text-done-light fa-2x mb-2"></i></p>
+                <p>No completed tasks</p>
+                <p class="hint">Drag tasks here when completed</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-12 py-4 text-center text-gray-500 border-t border-gray-200">
+        <p>&copy; <span id="current-year"></span> Created with <i class="fas fa-heart text-red-500"></i> by Pantelis</p>
+        <p class="text-xs mt-1">Drag and drop Kanban board for task management</p>
+    </footer>
+
+    <canvas id="confetti-canvas"></canvas>
+
+    <script src="script.js"></script>
+    <script>
+        // Set current year for the footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>
